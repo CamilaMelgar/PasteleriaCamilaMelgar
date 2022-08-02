@@ -3,6 +3,23 @@ let cartIcon = document.querySelector('#cart-icon')
 let cart = document.querySelector('.cart')
 let closeCart = document.querySelector('#close-cart')
 
+class Product{
+    constructor(name, image, price, quantity){
+        this.name = name;
+        this.image = image;
+        this.price = price;
+        this.quantity = quantity;
+    }
+}
+
+let store_products = [new Product("DONAS", "img/Foto Donas .jpg", 120, null),
+new Product("TORTA GRANDE CON GALLETAS", "img/lokitorta.png", 1000, null),
+new Product("GALLETAS", "img/galletas.jpg", 120, null),
+new Product("MASITAS", "img/IMG_20220327_215825_425.jpg", 250, null),
+new Product("TORTA DE YOGUR", "img/Foto de decoración con yogurt .jpg", 500, null),
+new Product("MACARRONES", "img/IMG_20220327_215825_342.jpg", 120, null),]
+
+
 cartIcon.onclick = () =>{
     cart.classList.add("active")
 }
@@ -38,16 +55,38 @@ function ready(){
         button.addEventListener('click', addCartClicked);
     }
 
+    set_up_store_items(store_products)
+
     document.getElementsByClassName("btn-buy")[0].addEventListener("click", buyButtonClicked)
 
-    let products = JSON.parse(localStorage.getItem("products"))
-
-    if (products != null){
-         for (let i = 0; i < products.length; i ++){
-            addProductToCart(products[i].name, products[i].price, products[i].image, products[i].quantity)
-        }
-        updateTotal()
+    let products = JSON.parse(localStorage.getItem("products")) || []
+    for (let i = 0; i < products.length; i ++){
+        addProductToCart(products[i].name, products[i].price, products[i].image, products[i].quantity)
     }
+    updateTotal()
+}
+
+function set_up_store_items(products){
+
+    let store_content = document.getElementsByClassName("shop-content")[0]
+
+    for (let i = 0; i < products.length; i++){
+
+        let store_item = document.createElement("div");
+        store_item.classList.add("product-box");
+
+        let store_item_content = `
+            <img src="${products[i].image}" alt="${products[i].name}" class="product-img">
+            <h2 class="product-title">${products[i].name}</h2>
+            <span class="price">$${products[i].price}</span>
+            <i class="bx bx-shopping-bag add-cart"></i>
+        `
+        store_item.innerHTML = store_item_content
+        store_item.getElementsByClassName("add-cart")[0].addEventListener('click', addCartClicked)
+
+        store_content.append(store_item)
+    }
+
 }
 
 function buyButtonClicked(event){
@@ -98,17 +137,12 @@ function addProductToCart(title, price, productImg, quantity){
         }
     }
 
-    let qty = 1
-    if (quantity != null){
-        qty = quantity
-    }
-
     let cartBoxContent = `
                             <img src="${productImg}" alt="" class="cart-img">
                             <div class="detail-box">
                                 <div class="cart-product-title">${title}</div>
                                 <div class="cart-price">${price }</div>
-                                <input type="number" value="${qty}" class="cart-quantity">
+                                <input type="number" value="${quantity != null ? quantity : 1}" class="cart-quantity">
                             </div>
                             <i class="bx bxs-trash-alt cart-remove"></i>`;
     cartShopBox.innerHTML = cartBoxContent;
@@ -135,9 +169,9 @@ function updateTotal(){
         let quantity = quantityElement.value;
         let price = parseFloat(priceElement.innerText.replace("$", ""));
 
-        totalQuantity = totalQuantity + parseInt(quantity)
+        totalQuantity += parseInt(quantity)
 
-        let product = {name : name, image : img, price : price, quantity : quantity}
+        let product = new Product(name, img, price, quantity)
         products.push(product)
 
         total = total + price * quantity;
