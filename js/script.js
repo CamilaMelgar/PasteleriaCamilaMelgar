@@ -91,7 +91,13 @@ function set_up_store_items(products){
 
 function buyButtonClicked(event){
     let buttonClicked =  event.target
-    alert("Tu compra fue realizada")
+    Swal.fire({
+        titleText: 'Felicidades !',
+        text: 'Tu compra fue realizada con éxito.',
+        icon: 'success',
+        footer: 'Gracias por elegirnos.'
+    })
+
     let cartContent = document.getElementsByClassName("cart-content")[0]
     while(cartContent.hasChildNodes()){
         cartContent.removeChild(cartContent.firstChild)
@@ -101,9 +107,20 @@ function buyButtonClicked(event){
 }
 
 function removeCartItem(event){
-    let buttonClicked = event.target;
-    buttonClicked.parentElement.remove();
-    updateTotal()
+
+    Swal.fire({
+        title: 'Estás seguro que desas eliminar este producto?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Si, quiero',
+        cancelButtonText: 'No, no quiero'
+    }).then((result) => {
+        if (result.isConfirmed){
+            let buttonClicked = event.target;
+            buttonClicked.parentElement.remove();
+            updateTotal()
+        }
+    })
 }
 
 function quantityChanged(event){
@@ -132,7 +149,11 @@ function addProductToCart(title, price, productImg, quantity){
     let cartItemsNames = cartItems.getElementsByClassName("cart-product-title");
     for (let i = 0; i < cartItemsNames.length; i++){
         if (cartItemsNames[i].innerText == title){
-            alert("Ya agregaste este producto al carrito")
+            Swal.fire({
+                titleText: 'Error',
+                text: 'Ya agregaste este producto al carrito',
+                icon : 'error'
+            })
             return;
         }
     }
@@ -149,6 +170,16 @@ function addProductToCart(title, price, productImg, quantity){
     cartItems.append(cartShopBox);
     cartShopBox.getElementsByClassName("cart-remove")[0].addEventListener('click', removeCartItem)
     cartShopBox.getElementsByClassName("cart-quantity")[0].addEventListener('click', quantityChanged)
+
+    //This way I know the function is not called from the initial setup of the store.
+    if (quantity == null){
+        Toastify({
+            text: 'producto agregado al carrito',
+            duration: 3000,
+            gravity: 'bottom',
+            position: 'center'
+        }).showToast();
+    }
 }
 
 function updateTotal(){
