@@ -12,14 +12,6 @@ class Product{
     }
 }
 
-let store_products = [new Product("DONAS", "img/Foto Donas .jpg", 120, null),
-new Product("TORTA GRANDE CON GALLETAS", "img/lokitorta.png", 1000, null),
-new Product("GALLETAS", "img/galletas.jpg", 120, null),
-new Product("MASITAS", "img/IMG_20220327_215825_425.jpg", 250, null),
-new Product("TORTA DE YOGUR", "img/Foto de decoración con yogurt .jpg", 500, null),
-new Product("MACARRONES", "img/IMG_20220327_215825_342.jpg", 120, null),]
-
-
 cartIcon.onclick = () =>{
     cart.classList.add("active")
 }
@@ -35,7 +27,6 @@ if (document.readyState == 'loading'){
 }
 
 function ready(){
-    // localStorage.clear()
 
     let removeCartButtons = document.getElementsByClassName('cart-remove');
     for (let i = 0; i < removeCartButtons.length; i++){
@@ -55,7 +46,11 @@ function ready(){
         button.addEventListener('click', addCartClicked);
     }
 
-    set_up_store_items(store_products)
+    fetch('jsons/products.json')
+        .then((res) => res.json())
+        .then((data) => {
+            set_up_store_items(data) 
+        })
 
     document.getElementsByClassName("btn-buy")[0].addEventListener("click", buyButtonClicked)
 
@@ -150,9 +145,8 @@ function addProductToCart(title, price, productImg, quantity){
     for (let i = 0; i < cartItemsNames.length; i++){
         if (cartItemsNames[i].innerText == title){
             Swal.fire({
-                titleText: 'Error',
-                text: 'Ya agregaste este producto al carrito',
-                icon : 'error'
+                titleText: 'Ya agregaste este producto al carrito',
+                icon : 'warning'
             })
             return;
         }

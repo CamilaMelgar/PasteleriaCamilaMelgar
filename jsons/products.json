@@ -1,0 +1,38 @@
+[
+    {
+        "name" : "DONAS",
+        "image" : "img/Foto Donas .jpg",
+        "price" : 120,
+        "quantity" : null
+    },
+    {
+        "name" : "TORTA GRANDE CON GALLETAS",
+        "image" : "img/lokitorta.png",
+        "price" : 1000,
+        "quantity" : null
+    },
+    {
+        "name" : "GALLETAS",
+        "image" : "img/galletas.jpg",
+        "price" : 120,
+        "quantity" : null
+    },
+    {
+        "name" : "MASITAS",
+        "image" : "img/IMG_20220327_215825_425.jpg",
+        "price" : 250,
+        "quantity" : null
+    },
+    {
+        "name" : "TORTA DE YOGUR",
+        "image" : "img/Foto de decoración con yogurt .jpg",
+        "price" : 500,
+        "quantity" : null
+    },
+    {
+        "name" : "MACARRONES",
+        "image" : "img/IMG_20220327_215825_342.jpg",
+        "price" : 120,
+        "quantity" : null
+    }
+]
