@@ -1,216 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-    crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Zen+Loop&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-    <title>Pastelería Consentidos.Uy</title>
-</head>
-<body>
-          <header>
-              <div class="nav container"> 
-                  <a href="#" class="logo">Tienda</a>
-                  <div class="icon-badge-container">
-                    <i class='bx bx-shopping-bag icon-badge-icon' id="cart-icon"></i>
-                    <div class="icon-badge">0</div>
-                  </div>
-                  
-                  <div class="cart">
-                      <h2 class="cart-title">Tu Carrito</h2>
-                      <div class="cart-content">
-                      </div>
-                      <div class="total">
-                          <div class="total-title">Total</div>
-                          <div class="total-price">$0</div>
-                      </div>
-                      <button type="button" class="btn-buy">Comprar</button>
-                      <i class="bx bx-x" id="close-cart"></i>
-                  </div>
-              </div>
-          </header>
-          <section class="shop container">
-              <h2 class="section-title">Comprá Productos</h2>
-              <div class="shop-content">
-              </div>
-          </section>
 
-       
-        <!-- Footer -->
-        <footer class="bg-dark text-center text-white">
-          <!-- Grid container -->
-          <div class="container p-4">
-            <!-- Section: Social media -->
-            <section class="mb-4">
-              <!-- Facebook -->
-              <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-                ><i class="fab fa-facebook-f"></i
-              ><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAV1JREFUWEftl9FNwzAQhu+svvQJFKkWiaVO0A1ggzIBLEA3YINmBCZggzJBu0DZoNKlJSAE78hGlkAkxqpxEoc8OFIekrNzX/7/Yl8QBnbgwHggArkc6VShkugCAPT5czC25Wn64AL5jncC9FwUV1KpJQKc2BJzIU57A3rZ7xdSyuWxhL0BvRJNPwC2rrfvDehAlDOAm8EAlUWxAqXOa0CIm5FSi0SInQvUFm9V1E9EawSYGQ++5EKsm8DoOa2ASqI3M7FPvXSuUAQyJS2Jbo175rUO59UxiLibZNn9X2vKq4ZsFjkTIW54ls2d474GBAeSAHdnQtiUtDIGB9IWciFqNh5TKzgQMnY9SdNVKMtqrYUCyG0LYzX5aDx+TJLkPQjQr6/OsnX878IYgRzG23b7aFlVtKiQa+2ICkWF2vbU+o9VKTWtKumzs3feU7ssbRL3aj+aJPCdE4Fcin0CkzKiJUkv7FEAAAAASUVORK5CYII="/></a>
-        
-              <!-- Google -->
-              <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-                ><i class="fab fa-google"></i
-              ><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAfBJREFUWEftl1tOwkAUhv/TQgJPGKIIncgKZAWyAnUFuAJcAa4AVgBuwO4AVwArkBVgCoiGyBMk0I4ZpFgKpRcuQtK+NOnMnPnO/5+5lHBkDx0ZD0IgN0dChU5foV6vl4OuF2aZyLKaTqff3LLy0z7QtOwUmMWPAGqSsbZ1/FINfXY6BYPzMgEJS6dKirGKn0md+n51u0XDMMpmOweGXJbvrUkvAfU7nTo4v7EH5EA9Go8/JpPJYRCwwWCQmIxGItFf5ZckoWZKUe7MT8tAmvbtNCEH2lyWH/xaKEpA0vUqgJxT7BRjZ76BFgOISheK8uxFKYcSWBm6FZCI5mbh3KIqAQsrNiWwNdAcaq2FwiLS9RcCsl5UFH12ArTOQvsq+hcg00Lx9mqRHXSnCnlVYe81tAsQM4ZvhTjR+8wSzq+CgLiN9w0EomYkFitMRqMaAbd+oDjwGo3Hi9PxWF13CgRbZfS3vftZSZIkPZ1nMjUxqdOxtDWQCDDbawxDdbJQWMQlqWA9ZvYKJKDmu/GKhaZF9oN470BmHVkttFpkr7ODAZkWivemm8BBgbysuhDITaVACn1oWoOA65Xgln3IbWKn9g3X49YlY/nF7cEaoK9peQ5UVqD2BMSBFgGlFGONtUBBs9/luPBX2k3NUKGTU+gH4Wc8NA50NooAAAAASUVORK5CYII="/></a>
-        
-              <!-- Instagram -->
-              <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/pasteleriaconsentidos.uy/" target="_blank" role="button"
-                ><i class="fab fa-instagram"></i
-              ><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAyJJREFUWEftl71OG0EQx2f2KKggsuKz75bwBJAXAF4gUEWkCXWk2E8ATwBSeqCK0gAvAFGkNJEwL4Ajpbe05w8iK1BhiduJ5nJ2Tufds8+2EgpWcuWd2d/Nx39nER7ZwkfGA09AozIydoRardYqhuECAmyMcpr8nwAuyXHuyuVyfRy7kUA3QfBWE+0iwPI4Dm17CKAhAPaLUp5l+bECdbvdxYf7+xMgWp8GZMgWsTY3P79TKBRuTX6tQJ0guACiNTYixDOBeF70vIu8cPxhYa+3TkTVvj9ArLm+vzU2EKeJiA7ZABGrRd8/zQti2t9RahcA+Gf1a4xQOwjqSPSCI1Py/cqkMJ0g4AbYBqISEH1xl5Y+tZWqIcAK11RJypdp30NA3E0iDC/jjVuulLVJgVpB8E4QfYjsEb+6vv8mGX3tOBvp7hsC6ijFRXzOPlwpn2XB/Gw2K6HW6/0OjDoJ8bLo+8ds1w6C10j0sV+HHO2uUssPANe2DzYBDfJsA4qjyDW2agGua8ep8td3ms1tCsOicJwfRc/7xvs7Sv2K7Q5cKQ+SPqxABPC9JOVQy6dSCryPAKK0IgBHa6V/gCklEwMB4pXr+5vpCPSLEgDuUIhKWgpums1N0voIABYAoO5KOaTsE0XIBMQ1o7Xej6IhxI5Nl2KoE94nhNh77nkMOFgzA2ordYoAr2zpTB46aG+DdMwSKNIQDXBcljISONtqKXUgAN6b0vZfgUzRnCVQlDJbsf7zlD26oo7U9+9ddCuEqJraXmt9iACLtuKfKGW2yy8tjJw+HQujAGAhHaj3bIUx4y6Lx9mjpCon6ydSb8ep2MbWvBHKe7myEv8ZbxHrDuJ1WgiTsLkv11mOHyaNyj1+xGNDNKBljZpZopj1X/IudKUcejgYJ8bUCLvbn28mhejbJdTbeMfFE4P5mOSQz5ECxEPX8z7nhYpeL73eGmi9N+hAyySRCRQ/g04HL4W8JLb9iFdzRJWClA3TlvEeigB7UU1Nt+6EEPtZHZgZofTZ3H2O1qtElOsFi4iNUIj6zJ7S0wUlv/XIlOV3OZ3FE9Co+P0G+cASQ1NqhSkAAAAASUVORK5CYII="/></a>
-        
-              <!-- Whatsapp -->
-              <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-                ><i class="fab fa-whatsapp"></i
-              ><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAA69JREFUWEftl1tO20AUhv8zEKl+gQqVBDwqbIB0Aw0bADZQ2EDJCmAFZAXABoANNN0AYQOFDRDkcKtQ4QVRYE51zAyaOHZsQx94YCQk5LFnvvznTnhji94YD96B8izyKoUuoqgBpcZgzBe5iIBjA3QrQXA0MTFxnXd52n5pIIFgYBnAIgHjmZcSdYh5Z1LrvTJghYGuomjmgWgTzI2BC4gO4mfMdQBj/j4DXQKaVa07RcAKAV32esuGeeNZEaIDAnZGmDsTWnf9i66ursYf7+4ahnmJmL+5PSJamwzD7TyoXCCBYebNWACiEyUHT0+38w6WfWveFgFz8ffAbk3r5rBvhwJdnp4usjE79rCjShAsvsRZz3u9LaeWUmr90/T0VhZUJpD4zD2wL2Zi4Kim9aDvFJHJvuNDkVIrWSpnArkDxEyVDx8aThnxkfvb27kKcJL0nzy+8yjqiPnE0Wtax6kiuVKB4vwC/IhzC1FzMgx35X+Bebi9led1EHWqYbiUB+Hvn52d1dXj437yXP+dVKCzKGop4LuoUwtDCeV4XUTRGgD5i5cZGZmfmpo6LAPlme6wqvV8IYXOe71DYv6cdMCLXq8N5q/uECbaq4XhahkgP1BGg2A2GSQDCvmyJhUYAAJ+1rSWrF1qXUTRH/vBUjJhDgD5/lPV+qN/0+/T01VjzIZ9djMaBPUXpoHYAgBaVa1bQ33IlzQJZJ1afGZMIqUSBPMvAfKUfh2Q/JJEsszNvGm2LAXkmyzN6eQCP8mllQM5YzQIDrPUc0HjpxQHPuBDcVUHfmU5nfvQh5KcNMrclETpah8D0g+1K0DLT6DW7MeFndrmG6ng0kYM2Ng3QR+UbBB1mLnu90kCVtN61n3nF+tCYS8fPifGxGFp/pCIvIFXOJEanP8kn2eaTDZ8s6XZOXlrXIiJ1ol50W/QJNOzUssum/eVpIwCm11cbSEE0UE1DOWiQstGYZ2Iuq4Gxj+yvw5mnpkLZIDtKa2f61chqpSXzqNol4CFvGBJBcqLhDJQtl3ZJCBWOc8FUoH8SHDZ2tq/IaNO0UnCtrACMyMwRdROBXpuzmRiIOomJw07SewysF/T+mnisEsc/JFogZlX4r7JrjxlhkaZy6RJ00jU2KLYt2WT4LVTom+T6MAotVa0bxrafggAgI4C9t3IIwr8BZrqaVjsm8E8kBsmasugWHQey1RI7K6Uqitj2nk9s81XM0Qkf+PGmLh7LAvhK5o7l5WJqP/x7jtQnopvTqF/+zcsQ7jgFXkAAAAASUVORK5CYII="/></a>
-        
-              <!-- Udemy -->
-              <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"
-                ><i class="fab fa-udemy"></i
-              ><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAeRJREFUWEftmNFNAjEYx78WfeBFDZHjuEZZQJkAFhAXEBcQJtAJZAJwAXEBcQGZQCaQpByCucgTL9Cakh65nIEWQ3s80OSSJm2vv3xf7//9ewh2rKEd44E9kCojKyM0ovQ+XOwQ0hhRWgIA8YjWdQjpxueoNtMZXwf0EwE6kZuHkA0JGZ9T4gBVAKhgjOvZfL6jAxGds20gAbyA5gBvOUIE3EZtq0ABpeczgI+Q4CCdLmQymckmRFsFEht/UdpFABeijzF+OM3nW4kCjQeDKue8KSF6DiHlRIGCIDieTaefy7QBFDOE9HWhtp6yRdoGgxbi/Eb0GcCTS8hSQlRgRoDGvl/hjD3Lr62fI6SoAgnHjQCJl48oFWk6En2E8a2uJhkDGlLawAB3iygh9JLzvJpOlMwBDYeXeD5/l2mbHKbTRR1NMgYU1ySEUD3reW1VlIwCfft+jTH2uIBAqOt43nWiQH9KiYYmGY2QTFsbAVzplhLjQNFSwgGUmmQcKK5JLJUqu67bW3WWrABFS4lKk6wASfv7GmpSjpBCohGSBbeHOD9TlRIrEZLnSMveWgPStbfWgHTtrVUgHXtrFUjH3loFCu2tuAGnEGpixjpxv239Ki2itM4X7f9+/NsPqRaaGt+5lP0C1xQhQ4CmUZcAAAAASUVORK5CYII="/></a>
-            </section>
-            <!-- Section: Social media -->
-        
-            <!-- Section: Form -->
-            <section class="">
-              <form action="">
-                <!--Grid row-->
-                <div class="row d-flex justify-content-center">
-                  <!--Grid column-->
-                  <div class="col-auto">
-                    <p class="pt-2">
-                      <strong>Para recibir nuestro newsletter</strong>
-                    </p>
-                  </div>
-                  <!--Grid column-->
-        
-                  <!--Grid column-->
-                  <div class="col-md-5 col-12">
-                    <!-- Email input -->
-                    <div class="form-outline form-white mb-4">
-                      <input type="email" id="form5Example21" class="form-control" />
-                      <label class="form-label" for="form5Example21">Email address</label>
-                    </div>
-                  </div>
-                  <!--Grid column-->
-        
-                  <!--Grid column-->
-                  <div class="col-auto">
-                    <!-- Submit button -->
-                    <button type="submit" class="btn btn-outline-light mb-4">
-                      Subscribe
-                    </button>
-                  </div>
-                  <!--Grid column-->
-                </div>
-                <!--Grid row-->
-              </form>
-            </section>
-            <!-- Section: Form -->
-        
-            <!-- Section: Text -->
-            <section class="mb-4">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
-                repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam
-                eum harum corrupti dicta, aliquam sequi voluptate quas.
-              </p>
-            </section>
-            <!-- Section: Text -->
-        
-            <!-- Section: Links -->
-            <section class="">
-              <!--Grid row-->
-              <div class="row">
-                <!--Grid column-->
-                <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
-                  <h5 class="text-uppercase">INICIO</h5>
-        
-                  <ul class="list-unstyled mb-0">
-                    <li>
-                      <a href="index.html" class="text-white">Home</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="text-white">Acerca De</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="text-white">Servicios</a>
-                    </li>
-                    <li>
-                      <a href="tienda.html" class="text-white">Tienda</a>
-                    </li>
-                  </ul>
-                </div>
-                <!--Grid column-->
-        
-                <!--Grid column-->
-                <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
-                  <h5 class="text-uppercase">INFORMACION</h5>
-        
-                  <ul class="list-unstyled mb-0">
-                    <li>
-                      <a href="contacto.html" class="text-white">Contacto</a>
-                    </li>
-                    <li>
-                      <a href="#!" class="text-white">Metodos de Pago</a>
-                    </li>
-                    <li>
-                      <a href="#!" class="text-white">Envios</a>
-                    </li>
-                    <li>
-                      <a href="#!" class="text-white">Preguntas Frecuentes</a>
-                    </li>
-                  </ul>
-                </div>
-                <!--Grid column-->
-        
-                <!--Grid column-->
-                <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
-                  <h5 class="text-uppercase">COMPRAS</h5>
-        
-                  <ul class="list-unstyled mb-0">
-                    <li>
-                      <a href="tienda.html" class="text-white">Carrito</a>
-                    </li>
-                    <li>
-                      <a href="#!" class="text-white">Cursos</a>
-                    </li>
-                    <li>
-                      <a href="tienda.html" class="text-white">Productos</a>
-                    </li>
-                    <li>
-                      <a href="#!" class="text-white">Local</a>
-                    </li>
-                  </ul>
-                </div>
-                <!--Grid column-->
-              </div>
-              <!--Grid row-->
-            </section>
-            <!-- Section: Links -->
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Loop&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <title>Pastelería Consentidos.Uy</title>
+</head>
+
+<body>
+  <header>
+
+    <div class="row">
+      <div class="col-md-9 nav">
+        <span id="welcome" class="logo">Welcome</span>
+      </div>
+      <div class="col-md-2">
+        <div class="row" style="height: 100%;">
+          <div class="col-md-6 nav">
+            <a href="#" class="logo" data-toggle="modal" data-target="#signUpModal">Crear Usuario</a>
           </div>
-          <!-- Grid container -->
-        
-          <!-- Copyright -->
-          <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-            © 2020 Copyright:
-            <a class="text-white">Camila Melgar Freelancer</a>
+          <div class="col-md-6 nav">
+            <a id="signin-button" href="#" class="logo" data-toggle="modal" data-target="#signInModal">Iniciar
+              Sesión</a>
+            <a href="#" class="logo" id="logout">Cerrar Sesión</a>
           </div>
-          <!-- Copyright -->
-          </footer>
-        <!-- Footer -->
+        </div>
+      </div>
+      <div class="col-md-1">
+        <div class="icon-badge-container">
+          <i class='bx bx-shopping-bag icon-badge-icon' id="cart-icon"></i>
+          <div class="icon-badge">0</div>
+        </div>
+        <div class="cart">
+          <h2 class="cart-title">Tu Carrito</h2>
+          <div class="cart-content">
+          </div>
+          <div class="total">
+            <div class="total-title">Total</div>
+            <div class="total-price">$0</div>
+          </div>
+          <button type="button" class="btn-buy">Comprar</button>
+          <i class="bx bx-x" id="close-cart"></i>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="nav container">
+
       
+      
+      
+    </div> -->
+  </header>
+  <div class="modal fade" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Iniciar Sesión</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="signin-form">
+            <div class="form-group">
+              <input type="text" id="signin-email" class="form-control" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+              <input type="password" id="signin-password" class="form-control" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Crear Usuario</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="signup-form">
+            <div class="form-group">
+              <input type="text" id="signup-name" class="form-control" placeholder="Nombre" required>
+            </div>
+            <div class="form-group">
+              <input type="text" id="signup-email" class="form-control" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+              <input type="password" id="signup-password" class="form-control" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Crear Usuario</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="shop container">
+    <h2 class="section-title">Comprá Productos</h2>
+    <div class="shop-content">
+    </div>
+  </section>
+
+
+  <!-- Footer -->
+  <footer class="bg-dark text-center text-white">
+    <!-- Grid container -->
+    <div class="container p-4">
+      <!-- Section: Social media -->
+      <section class="mb-4">
+        <!-- Facebook -->
+        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-facebook-f"></i><img
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAV1JREFUWEftl9FNwzAQhu+svvQJFKkWiaVO0A1ggzIBLEA3YINmBCZggzJBu0DZoNKlJSAE78hGlkAkxqpxEoc8OFIekrNzX/7/Yl8QBnbgwHggArkc6VShkugCAPT5czC25Wn64AL5jncC9FwUV1KpJQKc2BJzIU57A3rZ7xdSyuWxhL0BvRJNPwC2rrfvDehAlDOAm8EAlUWxAqXOa0CIm5FSi0SInQvUFm9V1E9EawSYGQ++5EKsm8DoOa2ASqI3M7FPvXSuUAQyJS2Jbo175rUO59UxiLibZNn9X2vKq4ZsFjkTIW54ls2d474GBAeSAHdnQtiUtDIGB9IWciFqNh5TKzgQMnY9SdNVKMtqrYUCyG0LYzX5aDx+TJLkPQjQr6/OsnX878IYgRzG23b7aFlVtKiQa+2ICkWF2vbU+o9VKTWtKumzs3feU7ssbRL3aj+aJPCdE4Fcin0CkzKiJUkv7FEAAAAASUVORK5CYII=" /></a>
+
+        <!-- Google -->
+        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-google"></i><img
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAfBJREFUWEftl1tOwkAUhv/TQgJPGKIIncgKZAWyAnUFuAJcAa4AVgBuwO4AVwArkBVgCoiGyBMk0I4ZpFgKpRcuQtK+NOnMnPnO/5+5lHBkDx0ZD0IgN0dChU5foV6vl4OuF2aZyLKaTqff3LLy0z7QtOwUmMWPAGqSsbZ1/FINfXY6BYPzMgEJS6dKirGKn0md+n51u0XDMMpmOweGXJbvrUkvAfU7nTo4v7EH5EA9Go8/JpPJYRCwwWCQmIxGItFf5ZckoWZKUe7MT8tAmvbtNCEH2lyWH/xaKEpA0vUqgJxT7BRjZ76BFgOISheK8uxFKYcSWBm6FZCI5mbh3KIqAQsrNiWwNdAcaq2FwiLS9RcCsl5UFH12ArTOQvsq+hcg00Lx9mqRHXSnCnlVYe81tAsQM4ZvhTjR+8wSzq+CgLiN9w0EomYkFitMRqMaAbd+oDjwGo3Hi9PxWF13CgRbZfS3vftZSZIkPZ1nMjUxqdOxtDWQCDDbawxDdbJQWMQlqWA9ZvYKJKDmu/GKhaZF9oN470BmHVkttFpkr7ODAZkWivemm8BBgbysuhDITaVACn1oWoOA65Xgln3IbWKn9g3X49YlY/nF7cEaoK9peQ5UVqD2BMSBFgGlFGONtUBBs9/luPBX2k3NUKGTU+gH4Wc8NA50NooAAAAASUVORK5CYII=" /></a>
+
+        <!-- Instagram -->
+        <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/pasteleriaconsentidos.uy/"
+          target="_blank" role="button"><i class="fab fa-instagram"></i><img
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAyJJREFUWEftl71OG0EQx2f2KKggsuKz75bwBJAXAF4gUEWkCXWk2E8ATwBSeqCK0gAvAFGkNJEwL4Ajpbe05w8iK1BhiduJ5nJ2Tufds8+2EgpWcuWd2d/Nx39nER7ZwkfGA09AozIydoRardYqhuECAmyMcpr8nwAuyXHuyuVyfRy7kUA3QfBWE+0iwPI4Dm17CKAhAPaLUp5l+bECdbvdxYf7+xMgWp8GZMgWsTY3P79TKBRuTX6tQJ0guACiNTYixDOBeF70vIu8cPxhYa+3TkTVvj9ArLm+vzU2EKeJiA7ZABGrRd8/zQti2t9RahcA+Gf1a4xQOwjqSPSCI1Py/cqkMJ0g4AbYBqISEH1xl5Y+tZWqIcAK11RJypdp30NA3E0iDC/jjVuulLVJgVpB8E4QfYjsEb+6vv8mGX3tOBvp7hsC6ijFRXzOPlwpn2XB/Gw2K6HW6/0OjDoJ8bLo+8ds1w6C10j0sV+HHO2uUssPANe2DzYBDfJsA4qjyDW2agGua8ep8td3ms1tCsOicJwfRc/7xvs7Sv2K7Q5cKQ+SPqxABPC9JOVQy6dSCryPAKK0IgBHa6V/gCklEwMB4pXr+5vpCPSLEgDuUIhKWgpums1N0voIABYAoO5KOaTsE0XIBMQ1o7Xej6IhxI5Nl2KoE94nhNh77nkMOFgzA2ordYoAr2zpTB46aG+DdMwSKNIQDXBcljISONtqKXUgAN6b0vZfgUzRnCVQlDJbsf7zlD26oo7U9+9ddCuEqJraXmt9iACLtuKfKGW2yy8tjJw+HQujAGAhHaj3bIUx4y6Lx9mjpCon6ydSb8ep2MbWvBHKe7myEv8ZbxHrDuJ1WgiTsLkv11mOHyaNyj1+xGNDNKBljZpZopj1X/IudKUcejgYJ8bUCLvbn28mhejbJdTbeMfFE4P5mOSQz5ECxEPX8z7nhYpeL73eGmi9N+hAyySRCRQ/g04HL4W8JLb9iFdzRJWClA3TlvEeigB7UU1Nt+6EEPtZHZgZofTZ3H2O1qtElOsFi4iNUIj6zJ7S0wUlv/XIlOV3OZ3FE9Co+P0G+cASQ1NqhSkAAAAASUVORK5CYII=" /></a>
+
+        <!-- Whatsapp -->
+        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-whatsapp"></i><img
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAA69JREFUWEftl1tO20AUhv8zEKl+gQqVBDwqbIB0Aw0bADZQ2EDJCmAFZAXABoANNN0AYQOFDRDkcKtQ4QVRYE51zAyaOHZsQx94YCQk5LFnvvznTnhji94YD96B8izyKoUuoqgBpcZgzBe5iIBjA3QrQXA0MTFxnXd52n5pIIFgYBnAIgHjmZcSdYh5Z1LrvTJghYGuomjmgWgTzI2BC4gO4mfMdQBj/j4DXQKaVa07RcAKAV32esuGeeNZEaIDAnZGmDsTWnf9i66ursYf7+4ahnmJmL+5PSJamwzD7TyoXCCBYebNWACiEyUHT0+38w6WfWveFgFz8ffAbk3r5rBvhwJdnp4usjE79rCjShAsvsRZz3u9LaeWUmr90/T0VhZUJpD4zD2wL2Zi4Kim9aDvFJHJvuNDkVIrWSpnArkDxEyVDx8aThnxkfvb27kKcJL0nzy+8yjqiPnE0Wtax6kiuVKB4vwC/IhzC1FzMgx35X+Bebi9led1EHWqYbiUB+Hvn52d1dXj437yXP+dVKCzKGop4LuoUwtDCeV4XUTRGgD5i5cZGZmfmpo6LAPlme6wqvV8IYXOe71DYv6cdMCLXq8N5q/uECbaq4XhahkgP1BGg2A2GSQDCvmyJhUYAAJ+1rSWrF1qXUTRH/vBUjJhDgD5/lPV+qN/0+/T01VjzIZ9djMaBPUXpoHYAgBaVa1bQ33IlzQJZJ1afGZMIqUSBPMvAfKUfh2Q/JJEsszNvGm2LAXkmyzN6eQCP8mllQM5YzQIDrPUc0HjpxQHPuBDcVUHfmU5nfvQh5KcNMrclETpah8D0g+1K0DLT6DW7MeFndrmG6ng0kYM2Ng3QR+UbBB1mLnu90kCVtN61n3nF+tCYS8fPifGxGFp/pCIvIFXOJEanP8kn2eaTDZ8s6XZOXlrXIiJ1ol50W/QJNOzUssum/eVpIwCm11cbSEE0UE1DOWiQstGYZ2Iuq4Gxj+yvw5mnpkLZIDtKa2f61chqpSXzqNol4CFvGBJBcqLhDJQtl3ZJCBWOc8FUoH8SHDZ2tq/IaNO0UnCtrACMyMwRdROBXpuzmRiIOomJw07SewysF/T+mnisEsc/JFogZlX4r7JrjxlhkaZy6RJ00jU2KLYt2WT4LVTom+T6MAotVa0bxrafggAgI4C9t3IIwr8BZrqaVjsm8E8kBsmasugWHQey1RI7K6Uqitj2nk9s81XM0Qkf+PGmLh7LAvhK5o7l5WJqP/x7jtQnopvTqF/+zcsQ7jgFXkAAAAASUVORK5CYII=" /></a>
+
+        <!-- Udemy -->
+        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-udemy"></i><img
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAeRJREFUWEftmNFNAjEYx78WfeBFDZHjuEZZQJkAFhAXEBcQJtAJZAJwAXEBcQGZQCaQpByCucgTL9Cakh65nIEWQ3s80OSSJm2vv3xf7//9ewh2rKEd44E9kCojKyM0ovQ+XOwQ0hhRWgIA8YjWdQjpxueoNtMZXwf0EwE6kZuHkA0JGZ9T4gBVAKhgjOvZfL6jAxGds20gAbyA5gBvOUIE3EZtq0ABpeczgI+Q4CCdLmQymckmRFsFEht/UdpFABeijzF+OM3nW4kCjQeDKue8KSF6DiHlRIGCIDieTaefy7QBFDOE9HWhtp6yRdoGgxbi/Eb0GcCTS8hSQlRgRoDGvl/hjD3Lr62fI6SoAgnHjQCJl48oFWk6En2E8a2uJhkDGlLawAB3iygh9JLzvJpOlMwBDYeXeD5/l2mbHKbTRR1NMgYU1ySEUD3reW1VlIwCfft+jTH2uIBAqOt43nWiQH9KiYYmGY2QTFsbAVzplhLjQNFSwgGUmmQcKK5JLJUqu67bW3WWrABFS4lKk6wASfv7GmpSjpBCohGSBbeHOD9TlRIrEZLnSMveWgPStbfWgHTtrVUgHXtrFUjH3loFCu2tuAGnEGpixjpxv239Ki2itM4X7f9+/NsPqRaaGt+5lP0C1xQhQ4CmUZcAAAAASUVORK5CYII=" /></a>
+      </section>
+      <!-- Section: Social media -->
+
+      <!-- Section: Form -->
+      <section class="">
+        <form action="">
+          <!--Grid row-->
+          <div class="row d-flex justify-content-center">
+            <!--Grid column-->
+            <div class="col-auto">
+              <p class="pt-2">
+                <strong>Para recibir nuestro newsletter</strong>
+              </p>
+            </div>
+            <!--Grid column-->
+
+            <!--Grid column-->
+            <div class="col-md-5 col-12">
+              <!-- Email input -->
+              <div class="form-outline form-white mb-4">
+                <input type="email" id="form5Example21" class="form-control" />
+                <label class="form-label" for="form5Example21">Email address</label>
+              </div>
+            </div>
+            <!--Grid column-->
+
+            <!--Grid column-->
+            <div class="col-auto">
+              <!-- Submit button -->
+              <button type="submit" class="btn btn-outline-light mb-4">
+                Subscribe
+              </button>
+            </div>
+            <!--Grid column-->
+          </div>
+          <!--Grid row-->
+        </form>
+      </section>
+      <!-- Section: Form -->
+
+      <!-- Section: Text -->
+      <section class="mb-4">
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
+          repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam
+          eum harum corrupti dicta, aliquam sequi voluptate quas.
+        </p>
+      </section>
+      <!-- Section: Text -->
+
+      <!-- Section: Links -->
+      <section class="">
+        <!--Grid row-->
+        <div class="row">
+          <!--Grid column-->
+          <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+            <h5 class="text-uppercase">INICIO</h5>
+
+            <ul class="list-unstyled mb-0">
+              <li>
+                <a href="index.html" class="text-white">Home</a>
+              </li>
+              <li>
+                <a href="index.html" class="text-white">Acerca De</a>
+              </li>
+              <li>
+                <a href="index.html" class="text-white">Servicios</a>
+              </li>
+              <li>
+                <a href="tienda.html" class="text-white">Tienda</a>
+              </li>
+            </ul>
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+            <h5 class="text-uppercase">INFORMACION</h5>
+
+            <ul class="list-unstyled mb-0">
+              <li>
+                <a href="contacto.html" class="text-white">Contacto</a>
+              </li>
+              <li>
+                <a href="#!" class="text-white">Metodos de Pago</a>
+              </li>
+              <li>
+                <a href="#!" class="text-white">Envios</a>
+              </li>
+              <li>
+                <a href="#!" class="text-white">Preguntas Frecuentes</a>
+              </li>
+            </ul>
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+            <h5 class="text-uppercase">COMPRAS</h5>
+
+            <ul class="list-unstyled mb-0">
+              <li>
+                <a href="tienda.html" class="text-white">Carrito</a>
+              </li>
+              <li>
+                <a href="#!" class="text-white">Cursos</a>
+              </li>
+              <li>
+                <a href="tienda.html" class="text-white">Productos</a>
+              </li>
+              <li>
+                <a href="#!" class="text-white">Local</a>
+              </li>
+            </ul>
+          </div>
+          <!--Grid column-->
+        </div>
+        <!--Grid row-->
+      </section>
+      <!-- Section: Links -->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2020 Copyright:
+      <a class="text-white">Camila Melgar Freelancer</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer -->
+
 </body>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-<script src="js/script.js"></script>
+<script type="module" src="js/script.js"></script>
+
 </html>
