@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile   } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, sendEmailVerification, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-firestore.js";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -18,7 +18,9 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+// Get auth for user sign up and sign in
 const auth = getAuth(app);
+//Get firestore db 
 const db = getFirestore(app);
 
 let storeUser;
@@ -28,6 +30,8 @@ let carrito;
 let cartIcon = document.querySelector('#cart-icon')
 let cart = document.querySelector('.cart')
 let closeCart = document.querySelector('#close-cart')
+
+//Firebase sign up
 
 const signUpForm = document.querySelector("#signup-form");
 signUpForm.addEventListener("submit", (e) => {
@@ -46,6 +50,16 @@ signUpForm.addEventListener("submit", (e) => {
             signUpForm.reset();
             // close the modal
             $("#signUpModal").modal("hide");
+
+            //Send email verification
+            sendEmailVerification(auth.currentUser)
+                .then(() => {
+                    // Email verification sent!
+                    Swal.fire({
+                        titleText: 'Se ha enviado un mail de verificación a tu correo. Debes verificar tu cuenta para poder realizar compras.',
+                        icon: 'success'
+                    })
+                });
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -74,6 +88,8 @@ signUpForm.addEventListener("submit", (e) => {
             })
         });
 });
+
+//Firebase Login
 
 const signInForm = document.querySelector("#signin-form");
 
@@ -116,18 +132,74 @@ signInForm.addEventListener("submit", (e) => {
                 icon: 'warning',
                 showCancelButton: false,
                 confirmButtonText: 'Ok'
+            });
+        });
+});
+
+const forgotPassword = document.querySelector("#forgot-password")
+forgotPassword.addEventListener("click", (e) => {
+    const email = signInForm["signin-email"].value;
+
+    if (email.length === 0){
+        Swal.fire({
+            title: "Debes ingresar un mail",
+            icon: 'warning',
+            showCancelButton: false,
+            confirmButtonText: 'Ok'
+        });
+        return;
+    }
+
+    sendPasswordResetEmail(auth, email)
+        .then(() => {
+            // Password reset email sent!
+            Swal.fire({
+                titleText: 'Se ha enviado un mail a tu correo para que resetees tu contraseña.',
+                icon: 'success'
+            })
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            let errorMessage;
+            switch (errorCode) {
+                case "auth/wrong-password":
+                    errorMessage = "Contraseña incorrecta."
+                    break;
+                case "auth/invalid-email":
+                    errorMessage = "El email ingresado no es válido"
+                    break;
+                case "auth/user-disabled":
+                    errorMessage = "El usuario ha sido deshabilitado"
+                    break;
+                case "auth/user-not-found":
+                    errorMessage = "El usuario no ha sido encontrado"
+                    break;
+                default:
+                    errorMessage = "Ocurrió un error inesperado"
+                    break;
+            }
+
+            Swal.fire({
+                title: errorMessage,
+                icon: 'warning',
+                showCancelButton: false,
+                confirmButtonText: 'Ok'
             })
         });
 });
+
+//Firebase signOut
 
 const logout = document.querySelector("#logout");
 logout.addEventListener("click", (e) => {
     e.preventDefault();
     signOut(auth).then(() => {
-      console.log("signup out");
-      isLogged = false;
+        console.log("signup out");
+        storeUser = null;
     });
-  });
+});
+
+//Listener to when the user signs in or signs out with firebase.
 
 auth.onAuthStateChanged((user) => {
     if (user) {
@@ -138,6 +210,14 @@ auth.onAuthStateChanged((user) => {
         userLoggedOut()
         storeUser = null;
         console.log("signout");
+    }
+});
+
+auth.onIdTokenChanged(function (user) {
+    if (user) {
+        // User is signed in or token was refreshed.
+        console.log("Token changed")
+        storeUser = user;
     }
 });
 
@@ -162,26 +242,6 @@ if (document.readyState == 'loading') {
     document.addEventListener("DOMContentLoaded", ready)
 } else {
     ready()
-}
-
-function userLoggedIn(user){
-    const welcome = document.querySelector("#welcome");
-    const signin = document.querySelector("#signin-button");
-    const logout = document.querySelector("#logout");
-    
-    welcome.textContent = "Welcome " + user.displayName
-    signin.style.display = 'none';
-    logout.style.display = 'block';
-}
-
-function userLoggedOut(){
-    const welcome = document.querySelector("#welcome");
-    const signin = document.querySelector("#signin-button");
-    const logout = document.querySelector("#logout");
-    
-    welcome.textContent = "Welcome"
-    signin.style.display = 'block';
-    logout.style.display = 'none';
 }
 
 function ready() {
@@ -244,15 +304,26 @@ function set_up_store_items(products) {
 
 function buyButtonClicked(event) {
 
-    if (storeUser == null){
+    if (auth.currentUser == null) {
         Swal.fire({
             title: "Debes iniciar sesión para realizar la compra. Si no tienes usuario puedes crear uno.",
             icon: 'warning',
             showCancelButton: false,
             confirmButtonText: 'Ok'
-        })
+        });
 
         return;
+    } else {
+        auth.currentUser.reload()
+        if (auth.currentUser.emailVerified == false) {
+            Swal.fire({
+                title: "Debes verificar tu cuenta para poder realizar compras. Este proceso puede tomar unos segundos, por favor, intenta nuevamente.",
+                icon: 'warning',
+                showCancelButton: false,
+                confirmButtonText: 'Ok'
+            });
+            return;
+        }
     }
 
 
@@ -380,4 +451,28 @@ function updateTotal() {
 
     badge.innerHTML = totalQuantity.toString()
     document.getElementsByClassName("total-price")[0].innerText = "$" + total;
+}
+
+function userLoggedIn(user) {
+    const welcome = document.querySelector("#welcome");
+    const signin = document.querySelector("#signin-button");
+    const signup = document.querySelector("#signup-button");
+    const logout = document.querySelector("#logout");
+
+    welcome.textContent = "Welcome " + user.displayName
+    signin.style.display = 'none';
+    logout.style.display = 'block';
+    signup.style.display = 'none';
+}
+
+function userLoggedOut() {
+    const welcome = document.querySelector("#welcome");
+    const signin = document.querySelector("#signin-button");
+    const signup = document.querySelector("#signup-button");
+    const logout = document.querySelector("#logout");
+
+    welcome.textContent = "Welcome"
+    signin.style.display = 'block';
+    logout.style.display = 'none';
+    signup.style.display = 'block';
 }
