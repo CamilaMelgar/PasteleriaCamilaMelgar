@@ -20,7 +20,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 // Get auth for user sign up and sign in
 const auth = getAuth(app);
-//Get firestore db 
+//Get firestore db. The idea in a near future is to save all user orders and have show it to them.
 const db = getFirestore(app);
 
 let storeUser;
@@ -326,8 +326,18 @@ function buyButtonClicked(event) {
         }
     }
 
+    let cartContent = document.getElementsByClassName("cart-content")[0]
+    if (carrito.length === 0){
+        Swal.fire({
+            titleText: 'Debes seleccionar algún producto para realizar tu compra.',
+            icon: 'warning',
+            footer: 'Gracias por elegirnos.'
+        });
 
-    let buttonClicked = event.target
+        return;
+    }
+
+
     Swal.fire({
         titleText: 'Felicidades !',
         text: 'Tu compra fue realizada con éxito.',
@@ -335,7 +345,6 @@ function buyButtonClicked(event) {
         footer: 'Gracias por elegirnos.'
     })
 
-    let cartContent = document.getElementsByClassName("cart-content")[0]
     while (cartContent.hasChildNodes()) {
         cartContent.removeChild(cartContent.firstChild)
     }
